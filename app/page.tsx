@@ -3,20 +3,40 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "@/lib/firebase";
 
 export default function HomePage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (!currentUser) {
         router.push("/login");
-      } else {
-        setUser(currentUser);
+        setLoading(false);
+        return;
       }
+
+      setUser(currentUser);
+
+      try {
+        const userRef = doc(db, "users", currentUser.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const data = userSnap.data();
+          setUserName(data.name || "User");
+        } else {
+          setUserName("User");
+        }
+      } catch (error) {
+        console.error("Error fetching user name:", error);
+        setUserName("User");
+      }
+
       setLoading(false);
     });
 
@@ -70,7 +90,7 @@ export default function HomePage() {
           <div>
             <p style={{ margin: 0, fontSize: "14px", opacity: 0.9 }}>Welcome</p>
             <h1 style={{ margin: "6px 0 0", fontSize: "26px", fontWeight: 800 }}>
-              {user?.email || "Blood Donor"}
+              {userName || user?.email || "Blood Donor"}
             </h1>
           </div>
 
