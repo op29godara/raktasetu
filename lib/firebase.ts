@@ -1,9 +1,9 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAiquF-qch4s0DNWbOFopfDbOrEjtHT1g",
+  apiKey: "AIzaSyAiquF-qch4s0DNWWbOFopfbD0rEjtHT1g",
   authDomain: "raktasetu-12441.firebaseapp.com",
   projectId: "raktasetu-12441",
   storageBucket: "raktasetu-12441.firebasestorage.app",
@@ -13,6 +13,6 @@ const firebaseConfig = {
 
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-export const db = getFirestore(app);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
 export default app;
