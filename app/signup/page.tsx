@@ -1,11 +1,14 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
 
 export default function SignupPage() {
+  const router = useRouter();
+
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -27,6 +30,7 @@ export default function SignupPage() {
 
       alert("Signup successful");
       form.reset();
+      router.push("/donor-register");
     } catch (error: any) {
       alert(error.message);
     }
@@ -58,27 +62,11 @@ export default function SignupPage() {
           border: "1px solid rgba(255,255,255,0.35)",
         }}
       >
-        <h1
-          style={{
-            marginBottom: "10px",
-            textAlign: "center",
-            color: "#991b1b",
-            fontSize: "32px",
-            fontWeight: 700,
-          }}
-        >
+        <h1 style={{ marginBottom: "10px", textAlign: "center", color: "#991b1b", fontSize: "32px", fontWeight: 700 }}>
           Sign Up
         </h1>
 
-        <p
-          style={{
-            textAlign: "center",
-            color: "#7f1d1d",
-            marginTop: "-6px",
-            marginBottom: "10px",
-            fontSize: "14px",
-          }}
-        >
+        <p style={{ textAlign: "center", color: "#7f1d1d", marginTop: "-6px", marginBottom: "10px", fontSize: "14px" }}>
           Create your account to continue
         </p>
 
