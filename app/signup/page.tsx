@@ -15,21 +15,18 @@ export default function SignupPage() {
     const password = (form.elements.namedItem("password") as HTMLInputElement).value;
 
     try {
-      // Firebase Auth: create user with email & password
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user; // yaha se uid milega [web:193][web:405]
+      const user = userCredential.user;
 
-      // Firestore: users collection me document create karo
       await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         name,
         email,
         createdAt: serverTimestamp(),
-      }); // Auth ke saath profile data store karna recommended hai. [web:391][web:402]
+      });
 
       alert("Signup successful");
       form.reset();
-      // yahan baad me tum /donor-register ya /login par navigate kar sakte ho
     } catch (error: any) {
       alert(error.message);
     }
@@ -42,26 +39,50 @@ export default function SignupPage() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#f5f5f5",
+        background: "linear-gradient(135deg, #7f1d1d 0%, #b91c1c 45%, #ef4444 100%)",
+        padding: "20px",
       }}
     >
       <form
         onSubmit={handleSignup}
         style={{
           width: "100%",
-          maxWidth: "400px",
-          padding: "24px",
-          borderRadius: "12px",
-          background: "#ffffff",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+          maxWidth: "420px",
+          padding: "32px",
+          borderRadius: "18px",
+          background: "rgba(255,255,255,0.96)",
+          boxShadow: "0 20px 50px rgba(127, 29, 29, 0.35)",
           display: "flex",
           flexDirection: "column",
-          gap: "12px",
+          gap: "14px",
+          border: "1px solid rgba(255,255,255,0.35)",
         }}
       >
-        <h1 style={{ marginBottom: "8px", textAlign: "center" }}>Sign Up</h1>
+        <h1
+          style={{
+            marginBottom: "10px",
+            textAlign: "center",
+            color: "#991b1b",
+            fontSize: "32px",
+            fontWeight: 700,
+          }}
+        >
+          Sign Up
+        </h1>
 
-        <label style={{ fontSize: "14px" }}>
+        <p
+          style={{
+            textAlign: "center",
+            color: "#7f1d1d",
+            marginTop: "-6px",
+            marginBottom: "10px",
+            fontSize: "14px",
+          }}
+        >
+          Create your account to continue
+        </p>
+
+        <label style={{ fontSize: "14px", color: "#7f1d1d", fontWeight: 600 }}>
           Full Name
           <input
             type="text"
@@ -70,16 +91,19 @@ export default function SignupPage() {
             placeholder="Enter your name"
             style={{
               width: "100%",
-              marginTop: "4px",
-              padding: "10px 12px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
+              marginTop: "6px",
+              padding: "12px 14px",
+              borderRadius: "10px",
+              border: "1px solid #fca5a5",
               fontSize: "14px",
+              outline: "none",
+              background: "#fff",
+              color: "#111827",
             }}
           />
         </label>
 
-        <label style={{ fontSize: "14px" }}>
+        <label style={{ fontSize: "14px", color: "#7f1d1d", fontWeight: 600 }}>
           Email
           <input
             type="email"
@@ -88,16 +112,19 @@ export default function SignupPage() {
             placeholder="you@example.com"
             style={{
               width: "100%",
-              marginTop: "4px",
-              padding: "10px 12px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
+              marginTop: "6px",
+              padding: "12px 14px",
+              borderRadius: "10px",
+              border: "1px solid #fca5a5",
               fontSize: "14px",
+              outline: "none",
+              background: "#fff",
+              color: "#111827",
             }}
           />
         </label>
 
-        <label style={{ fontSize: "14px" }}>
+        <label style={{ fontSize: "14px", color: "#7f1d1d", fontWeight: 600 }}>
           Password
           <input
             type="password"
@@ -107,11 +134,14 @@ export default function SignupPage() {
             placeholder="Minimum 6 characters"
             style={{
               width: "100%",
-              marginTop: "4px",
-              padding: "10px 12px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
+              marginTop: "6px",
+              padding: "12px 14px",
+              borderRadius: "10px",
+              border: "1px solid #fca5a5",
               fontSize: "14px",
+              outline: "none",
+              background: "#fff",
+              color: "#111827",
             }}
           />
         </label>
@@ -120,14 +150,15 @@ export default function SignupPage() {
           type="submit"
           style={{
             marginTop: "12px",
-            padding: "10px 12px",
-            borderRadius: "8px",
+            padding: "13px 16px",
+            borderRadius: "10px",
             border: "none",
-            fontSize: "15px",
-            fontWeight: 600,
-            background: "#2563eb",
+            fontSize: "16px",
+            fontWeight: 700,
+            background: "linear-gradient(90deg, #991b1b, #dc2626)",
             color: "#fff",
             cursor: "pointer",
+            boxShadow: "0 10px 25px rgba(220, 38, 38, 0.35)",
           }}
         >
           Create Account
