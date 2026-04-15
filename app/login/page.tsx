@@ -11,7 +11,7 @@ export default function LoginPage() {
 
         <form className="space-y-4">
           <div>
-            abel className="block text-sm font-medium mb-1">Email</label>
+            <label className="block text-sm font-medium mb-1">Email</label>
             <input
               type="email"
               placeholder="Enter your email"
@@ -20,7 +20,7 @@ export default function LoginPage() {
           </div>
 
           <div>
-            abel className="block text-sm font-medium mb-1">Password</label>
+            <label className="block text-sm font-medium mb-1">Password</label>
             <input
               type="password"
               placeholder="Enter your password"
