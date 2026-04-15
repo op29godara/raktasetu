@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
@@ -28,9 +29,9 @@ export default function SignupPage() {
         createdAt: serverTimestamp(),
       });
 
-      alert("Signup successful");
+      alert("Account created successfully");
       form.reset();
-      router.push("/donor-register");
+      router.push("/");
     } catch (error: any) {
       alert(error.message);
     }
@@ -43,7 +44,7 @@ export default function SignupPage() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #7f1d1d 0%, #b91c1c 45%, #ef4444 100%)",
+        background: "linear-gradient(135deg, #5f0f14 0%, #9b111e 45%, #c81d25 100%)",
         padding: "20px",
       }}
     >
@@ -53,105 +54,81 @@ export default function SignupPage() {
           width: "100%",
           maxWidth: "420px",
           padding: "32px",
-          borderRadius: "18px",
-          background: "rgba(255,255,255,0.96)",
-          boxShadow: "0 20px 50px rgba(127, 29, 29, 0.35)",
+          borderRadius: "22px",
+          background: "rgba(255,255,255,0.97)",
+          boxShadow: "0 24px 60px rgba(80, 0, 0, 0.25)",
           display: "flex",
           flexDirection: "column",
           gap: "14px",
-          border: "1px solid rgba(255,255,255,0.35)",
         }}
       >
-        <h1 style={{ marginBottom: "10px", textAlign: "center", color: "#991b1b", fontSize: "32px", fontWeight: 700 }}>
-          Sign Up
+        <h1 style={{ textAlign: "center", color: "#8b1118", fontSize: "30px", fontWeight: 800 }}>
+          Create Account
         </h1>
 
-        <p style={{ textAlign: "center", color: "#7f1d1d", marginTop: "-6px", marginBottom: "10px", fontSize: "14px" }}>
-          Create your account to continue
+        <p style={{ textAlign: "center", color: "#6b7280", fontSize: "14px", marginBottom: "8px" }}>
+          Join the blood donation network
         </p>
 
-        <label style={{ fontSize: "14px", color: "#7f1d1d", fontWeight: 600 }}>
-          Full Name
-          <input
-            type="text"
-            name="name"
-            required
-            placeholder="Enter your name"
-            style={{
-              width: "100%",
-              marginTop: "6px",
-              padding: "12px 14px",
-              borderRadius: "10px",
-              border: "1px solid #fca5a5",
-              fontSize: "14px",
-              outline: "none",
-              background: "#fff",
-              color: "#111827",
-            }}
-          />
-        </label>
+        <input
+          type="text"
+          name="name"
+          placeholder="Full Name"
+          required
+          style={inputStyle}
+        />
 
-        <label style={{ fontSize: "14px", color: "#7f1d1d", fontWeight: 600 }}>
-          Email
-          <input
-            type="email"
-            name="email"
-            required
-            placeholder="you@example.com"
-            style={{
-              width: "100%",
-              marginTop: "6px",
-              padding: "12px 14px",
-              borderRadius: "10px",
-              border: "1px solid #fca5a5",
-              fontSize: "14px",
-              outline: "none",
-              background: "#fff",
-              color: "#111827",
-            }}
-          />
-        </label>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email Address"
+          required
+          style={inputStyle}
+        />
 
-        <label style={{ fontSize: "14px", color: "#7f1d1d", fontWeight: 600 }}>
-          Password
-          <input
-            type="password"
-            name="password"
-            required
-            minLength={6}
-            placeholder="Minimum 6 characters"
-            style={{
-              width: "100%",
-              marginTop: "6px",
-              padding: "12px 14px",
-              borderRadius: "10px",
-              border: "1px solid #fca5a5",
-              fontSize: "14px",
-              outline: "none",
-              background: "#fff",
-              color: "#111827",
-            }}
-          />
-        </label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          minLength={6}
+          required
+          style={inputStyle}
+        />
 
-        <button
-          type="submit"
-          style={{
-            marginTop: "12px",
-            padding: "13px 16px",
-            borderRadius: "10px",
-            border: "none",
-            fontSize: "16px",
-            fontWeight: 700,
-            background: "linear-gradient(90deg, #991b1b, #dc2626)",
-            color: "#fff",
-            cursor: "pointer",
-            boxShadow: "0 10px 25px rgba(220, 38, 38, 0.35)",
-          }}
-        >
-          Create Account
+        <button type="submit" style={buttonStyle}>
+          Sign Up
         </button>
+
+        <p style={{ textAlign: "center", fontSize: "14px", color: "#4b5563" }}>
+          Already have an account?{" "}
+          <Link href="/login" style={{ color: "#b91c1c", fontWeight: 700, textDecoration: "none" }}>
+            Login
+          </Link>
+        </p>
       </form>
     </div>
   );
 }
+
+const inputStyle: React.CSSProperties = {
+  width: "100%",
+  padding: "14px 16px",
+  borderRadius: "12px",
+  border: "1px solid #e5e7eb",
+  fontSize: "15px",
+  outline: "none",
+  background: "#fff",
+  color: "#111827",
+};
+
+const buttonStyle: React.CSSProperties = {
+  marginTop: "8px",
+  padding: "14px 16px",
+  borderRadius: "12px",
+  border: "none",
+  background: "linear-gradient(90deg, #8b1118, #d62839)",
+  color: "#fff",
+  fontSize: "16px",
+  fontWeight: 700,
+  cursor: "pointer",
+};
