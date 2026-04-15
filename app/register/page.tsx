@@ -1,101 +1,232 @@
-import Link from "next/link";
+"use client";
 
-export default function RegisterPage() {
+import React from "react";
+import { useRouter } from "next/navigation";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { auth, db } from "@/lib/firebase";
+
+export default function DonorRegisterPage() {
+  const router = useRouter();
+
+  const handleDonorRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const user = auth.currentUser;
+
+    if (!user) {
+      alert("Please login first");
+      router.push("/login");
+      return;
+    }
+
+    const form = e.currentTarget;
+    const fullName = (form.elements.namedItem("fullName") as HTMLInputElement).value;
+    const phone = (form.elements.namedItem("phone") as HTMLInputElement).value;
+    const bloodGroup = (form.elements.namedItem("bloodGroup") as HTMLSelectElement).value;
+    const city = (form.elements.namedItem("city") as HTMLInputElement).value;
+    const age = (form.elements.namedItem("age") as HTMLInputElement).value;
+
+    try {
+      await setDoc(doc(db, "donors", user.uid), {
+        uid: user.uid,
+        fullName,
+        phone,
+        bloodGroup,
+        city,
+        age,
+        email: user.email,
+        createdAt: serverTimestamp(),
+      });
+
+      alert("Donor profile saved successfully");
+      form.reset();
+      router.push("/login");
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-red-50 flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-2xl bg-white shadow-lg rounded-2xl p-6 md:p-8">
-        <h1 className="text-3xl font-bold text-center text-red-700">
-          Donor Registration
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(135deg, #7f1d1d 0%, #b91c1c 45%, #ef4444 100%)",
+        padding: "20px",
+      }}
+    >
+      <form
+        onSubmit={handleDonorRegister}
+        style={{
+          width: "100%",
+          maxWidth: "480px",
+          padding: "32px",
+          borderRadius: "18px",
+          background: "rgba(255,255,255,0.96)",
+          boxShadow: "0 20px 50px rgba(127, 29, 29, 0.35)",
+          display: "flex",
+          flexDirection: "column",
+          gap: "14px",
+          border: "1px solid rgba(255,255,255,0.35)",
+        }}
+      >
+        <h1
+          style={{
+            marginBottom: "10px",
+            textAlign: "center",
+            color: "#991b1b",
+            fontSize: "30px",
+            fontWeight: 700,
+          }}
+        >
+          Donor Register
         </h1>
-        <p className="text-center text-gray-600 mt-2 mb-8">
-          Join RaktaSetu and become a lifesaver.
+
+        <p
+          style={{
+            textAlign: "center",
+            color: "#7f1d1d",
+            marginTop: "-6px",
+            marginBottom: "10px",
+            fontSize: "14px",
+          }}
+        >
+          Complete your donor profile
         </p>
 
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="md:col-span-2">
-            <label className="block text-sm font-medium mb-1">Full Name</label>
-            <input
-              type="text"
-              placeholder="Enter full name"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"
-            />
-          </div>
+        <label style={{ fontSize: "14px", color: "#7f1d1d", fontWeight: 600 }}>
+          Full Name
+          <input
+            type="text"
+            name="fullName"
+            required
+            placeholder="Enter full name"
+            style={{
+              width: "100%",
+              marginTop: "6px",
+              padding: "12px 14px",
+              borderRadius: "10px",
+              border: "1px solid #fca5a5",
+              fontSize: "14px",
+              outline: "none",
+              background: "#fff",
+              color: "#111827",
+            }}
+          />
+        </label>
 
-          <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
-            <input
-              type="email"
-              placeholder="Enter email"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"
-            />
-          </div>
+        <label style={{ fontSize: "14px", color: "#7f1d1d", fontWeight: 600 }}>
+          Phone Number
+          <input
+            type="tel"
+            name="phone"
+            required
+            placeholder="Enter phone number"
+            style={{
+              width: "100%",
+              marginTop: "6px",
+              padding: "12px 14px",
+              borderRadius: "10px",
+              border: "1px solid #fca5a5",
+              fontSize: "14px",
+              outline: "none",
+              background: "#fff",
+              color: "#111827",
+            }}
+          />
+        </label>
 
-          <div>
-            <label className="block text-sm font-medium mb-1">Mobile Number</label>
-            <input
-              type="tel"
-              placeholder="Enter mobile number"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"
-            />
-          </div>
+        <label style={{ fontSize: "14px", color: "#7f1d1d", fontWeight: 600 }}>
+          Blood Group
+          <select
+            name="bloodGroup"
+            required
+            style={{
+              width: "100%",
+              marginTop: "6px",
+              padding: "12px 14px",
+              borderRadius: "10px",
+              border: "1px solid #fca5a5",
+              fontSize: "14px",
+              outline: "none",
+              background: "#fff",
+              color: "#111827",
+            }}
+          >
+            <option value="">Select blood group</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+          </select>
+        </label>
 
-          <div>
-            <label className="block text-sm font-medium mb-1">Blood Group</label>
-            <select className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500">
-              <option value="">Select blood group</option>
-              <option>A+</option>
-              <option>A-</option>
-              <option>B+</option>
-              <option>B-</option>
-              <option>AB+</option>
-              <option>AB-</option>
-              <option>O+</option>
-              <option>O-</option>
-            </select>
-          </div>
+        <label style={{ fontSize: "14px", color: "#7f1d1d", fontWeight: 600 }}>
+          City
+          <input
+            type="text"
+            name="city"
+            required
+            placeholder="Enter city"
+            style={{
+              width: "100%",
+              marginTop: "6px",
+              padding: "12px 14px",
+              borderRadius: "10px",
+              border: "1px solid #fca5a5",
+              fontSize: "14px",
+              outline: "none",
+              background: "#fff",
+              color: "#111827",
+            }}
+          />
+        </label>
 
-          <div>
-            <label className="block text-sm font-medium mb-1">City</label>
-            <input
-              type="text"
-              placeholder="Enter city"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"
-            />
-          </div>
+        <label style={{ fontSize: "14px", color: "#7f1d1d", fontWeight: 600 }}>
+          Age
+          <input
+            type="number"
+            name="age"
+            required
+            placeholder="Enter age"
+            style={{
+              width: "100%",
+              marginTop: "6px",
+              padding: "12px 14px",
+              borderRadius: "10px",
+              border: "1px solid #fca5a5",
+              fontSize: "14px",
+              outline: "none",
+              background: "#fff",
+              color: "#111827",
+            }}
+          />
+        </label>
 
-          <div className="md:col-span-2">
-            <label className="block text-sm font-medium mb-1">Address</label>
-            <textarea
-              rows={4}
-              placeholder="Enter address"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"
-            ></textarea>
-          </div>
-
-          <div className="md:col-span-2 flex items-start gap-2">
-            <input type="checkbox" id="available" className="mt-1" />
-            <label htmlFor="available" className="text-sm text-gray-700">
-              I am available for emergency donation
-            </label>
-          </div>
-
-          <div className="md:col-span-2">
-            <button
-              type="submit"
-              className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold"
-            >
-              Register as Donor
-            </button>
-          </div>
-        </form>
-
-        <p className="text-center text-sm text-gray-600 mt-6">
-          Already have an account?{" "}
-          <Link href="/login" className="text-red-600 font-medium hover:underline">
-            Login
-          </Link>
-        </p>
-      </div>
-    </main>
+        <button
+          type="submit"
+          style={{
+            marginTop: "12px",
+            padding: "13px 16px",
+            borderRadius: "10px",
+            border: "none",
+            fontSize: "16px",
+            fontWeight: 700,
+            background: "linear-gradient(90deg, #991b1b, #dc2626)",
+            color: "#fff",
+            cursor: "pointer",
+            boxShadow: "0 10px 25px rgba(220, 38, 38, 0.35)",
+          }}
+        >
+          Save Donor Profile
+        </button>
+      </form>
+    </div>
   );
 }
