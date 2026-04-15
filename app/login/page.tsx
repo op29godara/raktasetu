@@ -1,48 +1,140 @@
-import Link from "next/link";
+"use client";
+
+import React from "react";
+import { useRouter } from "next/navigation";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/lib/firebase";
 
 export default function LoginPage() {
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+    const password = (form.elements.namedItem("password") as HTMLInputElement).value;
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      alert("Login successful");
+      form.reset();
+      router.push("/donor-register");
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-red-50 flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
-        <h1 className="text-3xl font-bold text-center text-red-700">Login</h1>
-        <p className="text-center text-gray-600 mt-2 mb-6">
-          Welcome back to RaktaSetu
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(135deg, #7f1d1d 0%, #b91c1c 45%, #ef4444 100%)",
+        padding: "20px",
+      }}
+    >
+      <form
+        onSubmit={handleLogin}
+        style={{
+          width: "100%",
+          maxWidth: "420px",
+          padding: "32px",
+          borderRadius: "18px",
+          background: "rgba(255,255,255,0.96)",
+          boxShadow: "0 20px 50px rgba(127, 29, 29, 0.35)",
+          display: "flex",
+          flexDirection: "column",
+          gap: "14px",
+          border: "1px solid rgba(255,255,255,0.35)",
+        }}
+      >
+        <h1
+          style={{
+            marginBottom: "10px",
+            textAlign: "center",
+            color: "#991b1b",
+            fontSize: "32px",
+            fontWeight: 700,
+          }}
+        >
+          Login
+        </h1>
+
+        <p
+          style={{
+            textAlign: "center",
+            color: "#7f1d1d",
+            marginTop: "-6px",
+            marginBottom: "10px",
+            fontSize: "14px",
+          }}
+        >
+          Welcome back, sign in to continue
         </p>
 
-        <form className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"
-            />
-          </div>
+        <label style={{ fontSize: "14px", color: "#7f1d1d", fontWeight: 600 }}>
+          Email
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="you@example.com"
+            style={{
+              width: "100%",
+              marginTop: "6px",
+              padding: "12px 14px",
+              borderRadius: "10px",
+              border: "1px solid #fca5a5",
+              fontSize: "14px",
+              outline: "none",
+              background: "#fff",
+              color: "#111827",
+            }}
+          />
+        </label>
 
-          <div>
-            <label className="block text-sm font-medium mb-1">Password</label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"
-            />
-          </div>
+        <label style={{ fontSize: "14px", color: "#7f1d1d", fontWeight: 600 }}>
+          Password
+          <input
+            type="password"
+            name="password"
+            required
+            placeholder="Enter your password"
+            style={{
+              width: "100%",
+              marginTop: "6px",
+              padding: "12px 14px",
+              borderRadius: "10px",
+              border: "1px solid #fca5a5",
+              fontSize: "14px",
+              outline: "none",
+              background: "#fff",
+              color: "#111827",
+            }}
+          />
+        </label>
 
-          <button
-            type="submit"
-            className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold"
-          >
-            Login
-          </button>
-        </form>
-
-        <p className="text-center text-sm text-gray-600 mt-6">
-          Don&apos;t have an account?{" "}
-          <Link href="/signup" className="text-red-600 font-medium hover:underline">
-            Sign Up
-          </Link>
-        </p>
-      </div>
-    </main>
+        <button
+          type="submit"
+          style={{
+            marginTop: "12px",
+            padding: "13px 16px",
+            borderRadius: "10px",
+            border: "none",
+            fontSize: "16px",
+            fontWeight: 700,
+            background: "linear-gradient(90deg, #991b1b, #dc2626)",
+            color: "#fff",
+            cursor: "pointer",
+            boxShadow: "0 10px 25px rgba(220, 38, 38, 0.35)",
+          }}
+        >
+          Login
+        </button>
+      </form>
+    </div>
   );
 }
