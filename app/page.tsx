@@ -28,6 +28,13 @@ export default function Home() {
           >
             Sign Up
           </Link>
+
+          <Link
+            href="/register"
+            className="bg-red-100 border border-red-300 text-red-700 hover:bg-red-200 px-6 py-3 rounded-lg font-semibold"
+          >
+            Donor Register
+          </Link>
         </div>
       </div>
     </main>
