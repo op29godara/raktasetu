@@ -44,7 +44,7 @@ export default function LoginPage() {
     <div style={pageWrap}>
       <form onSubmit={handleLogin} style={formWrap}>
         <h1 style={title}>Login</h1>
-        <p style={subtitle}>User aur admin dono yahin se login karenge</p>
+        <p style={subtitle}>Every drop counts, every donor matters.</p>
 
         <input
           type="email"
@@ -112,6 +112,7 @@ const subtitle: React.CSSProperties = {
   fontSize: "14px",
   marginTop: 0,
   marginBottom: "8px",
+  lineHeight: 1.6,
 };
 
 const inputStyle: React.CSSProperties = {
@@ -121,7 +122,7 @@ const inputStyle: React.CSSProperties = {
   border: "1px solid #e5e7eb",
   fontSize: "15px",
   outline: "none",
-  background: "#fff",
+  background: "#eef2f7",
   color: "#111827",
 };
 
