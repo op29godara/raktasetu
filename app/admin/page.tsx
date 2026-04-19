@@ -63,7 +63,7 @@ export default function AdminPage() {
       <div style={loadingWrap}>
         <div style={loadingCard}>
           <div style={loaderCircle}></div>
-          <p style={loadingText}>Preparing luxury admin dashboard...</p>
+          <p style={loadingText}>Preparing admin dashboard...</p>
         </div>
       </div>
     );
@@ -81,7 +81,7 @@ export default function AdminPage() {
             <h1 style={heroTitle}>Welcome back, {adminName}</h1>
             <p style={heroText}>
               Manage donors, track blood requests, monitor engagement, and keep
-              the platform running smoothly from one premium dashboard.
+              the platform running smoothly from one dashboard.
             </p>
 
             <div style={heroInfoRow}>
@@ -103,7 +103,7 @@ export default function AdminPage() {
             </button>
 
             <div style={heroStatBox}>
-              <p style={heroStatTop}>Today&apos;s system overview</p>
+              <p style={heroStatTop}>Today's system overview</p>
               <h2 style={heroStatNumber}>24</h2>
               <p style={heroStatBottom}>Active interactions tracked</p>
             </div>
@@ -155,33 +155,25 @@ export default function AdminPage() {
               <button style={actionCard} onClick={() => router.push("/admin/donors")}>
                 <div style={actionEmoji}>🧑‍⚕️</div>
                 <h3 style={actionTitle}>Manage Donors</h3>
-                <p style={actionText}>
-                  Add, edit, remove and review donor records.
-                </p>
+                <p style={actionText}>Add, edit, remove and review donor records.</p>
               </button>
 
               <button style={actionCard} onClick={() => router.push("/admin/requests")}>
                 <div style={actionEmoji}>📋</div>
                 <h3 style={actionTitle}>Blood Requests</h3>
-                <p style={actionText}>
-                  Monitor incoming requests and urgent demand.
-                </p>
+                <p style={actionText}>Monitor incoming requests and urgent demand.</p>
               </button>
 
               <button style={actionCard} onClick={() => router.push("/thank-you")}>
                 <div style={actionEmoji}>🎁</div>
                 <h3 style={actionTitle}>Thank You Cards</h3>
-                <p style={actionText}>
-                  Create premium appreciation cards for donors.
-                </p>
+                <p style={actionText}>Open the thank you page and manage appreciation content.</p>
               </button>
 
               <button style={actionCard} onClick={() => router.push("/")}>
                 <div style={actionEmoji}>🌍</div>
                 <h3 style={actionTitle}>Open User App</h3>
-                <p style={actionText}>
-                  Preview exactly what public users see in the app.
-                </p>
+                <p style={actionText}>Preview what public users see in the app.</p>
               </button>
             </div>
           </div>
@@ -199,9 +191,7 @@ export default function AdminPage() {
                 <div style={activityDot}></div>
                 <div>
                   <h4 style={activityTitle}>New donor registration completed</h4>
-                  <p style={activityDesc}>
-                    A new O+ donor profile was successfully added to the system.
-                  </p>
+                  <p style={activityDesc}>A new O+ donor profile was successfully added to the system.</p>
                 </div>
               </div>
 
@@ -209,19 +199,15 @@ export default function AdminPage() {
                 <div style={activityDot}></div>
                 <div>
                   <h4 style={activityTitle}>Urgent blood request received</h4>
-                  <p style={activityDesc}>
-                    One emergency request needs attention and quick response.
-                  </p>
+                  <p style={activityDesc}>One emergency request needs attention and quick response.</p>
                 </div>
               </div>
 
               <div style={activityItem}>
                 <div style={activityDot}></div>
                 <div>
-                  <h4 style={activityTitle}>Thank you card module prepared</h4>
-                  <p style={activityDesc}>
-                    Appreciation workflows can now be expanded beautifully.
-                  </p>
+                  <h4 style={activityTitle}>Thank you page ready</h4>
+                  <p style={activityDesc}>Appreciation content can now be reviewed from the dashboard.</p>
                 </div>
               </div>
             </div>
@@ -248,7 +234,7 @@ export default function AdminPage() {
               </div>
               <div style={healthRow}>
                 <span style={healthLabel}>Dashboard Theme</span>
-                <span style={healthGood}>Premium</span>
+                <span style={healthGood}>Ready</span>
               </div>
             </div>
           </div>
@@ -436,3 +422,231 @@ const heroStatBox: React.CSSProperties = {
 };
 
 const heroStatTop: React.CSSProperties = {
+  margin: 0,
+  fontSize: "13px",
+  color: "rgba(255,255,255,0.74)",
+};
+
+const heroStatNumber: React.CSSProperties = {
+  margin: "12px 0 6px",
+  fontSize: "52px",
+  lineHeight: 1,
+  fontWeight: 900,
+};
+
+const heroStatBottom: React.CSSProperties = {
+  margin: 0,
+  fontSize: "14px",
+  color: "rgba(255,255,255,0.84)",
+};
+
+const statsGrid: React.CSSProperties = {
+  position: "relative",
+  zIndex: 1,
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+  gap: "18px",
+  marginTop: "22px",
+};
+
+const statCard: React.CSSProperties = {
+  background: "rgba(255,255,255,0.88)",
+  borderRadius: "24px",
+  padding: "22px",
+  border: "1px solid rgba(220, 38, 38, 0.10)",
+  boxShadow: "0 18px 40px rgba(127, 29, 29, 0.08)",
+};
+
+const statIcon: React.CSSProperties = {
+  fontSize: "28px",
+  marginBottom: "14px",
+};
+
+const statLabel: React.CSSProperties = {
+  margin: 0,
+  color: "#6b7280",
+  fontSize: "14px",
+};
+
+const statValue: React.CSSProperties = {
+  margin: "10px 0 8px",
+  color: "#111827",
+  fontSize: "30px",
+  fontWeight: 800,
+};
+
+const statGrowth: React.CSSProperties = {
+  color: "#b91c1c",
+  fontSize: "13px",
+  fontWeight: 700,
+};
+
+const mainGrid: React.CSSProperties = {
+  position: "relative",
+  zIndex: 1,
+  display: "grid",
+  gridTemplateColumns: "2fr 1fr",
+  gap: "22px",
+  marginTop: "24px",
+};
+
+const leftColumn: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "22px",
+};
+
+const rightColumn: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "22px",
+};
+
+const sectionCard: React.CSSProperties = {
+  background: "rgba(255,255,255,0.88)",
+  borderRadius: "28px",
+  padding: "24px",
+  border: "1px solid rgba(220, 38, 38, 0.10)",
+  boxShadow: "0 18px 40px rgba(127, 29, 29, 0.08)",
+};
+
+const sectionHeader: React.CSSProperties = {
+  marginBottom: "18px",
+};
+
+const sectionTag: React.CSSProperties = {
+  margin: 0,
+  color: "#b91c1c",
+  fontSize: "12px",
+  fontWeight: 800,
+  letterSpacing: "1px",
+};
+
+const sectionTitle: React.CSSProperties = {
+  margin: "8px 0 0",
+  fontSize: "26px",
+  color: "#111827",
+  fontWeight: 800,
+};
+
+const actionGrid: React.CSSProperties = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+  gap: "16px",
+};
+
+const actionCard: React.CSSProperties = {
+  textAlign: "left",
+  background: "linear-gradient(180deg, #ffffff 0%, #fff6f7 100%)",
+  border: "1px solid rgba(220, 38, 38, 0.10)",
+  borderRadius: "22px",
+  padding: "20px",
+  cursor: "pointer",
+  boxShadow: "0 10px 26px rgba(127, 29, 29, 0.05)",
+};
+
+const actionEmoji: React.CSSProperties = {
+  fontSize: "28px",
+  marginBottom: "14px",
+};
+
+const actionTitle: React.CSSProperties = {
+  margin: "0 0 8px",
+  fontSize: "18px",
+  color: "#111827",
+  fontWeight: 800,
+};
+
+const actionText: React.CSSProperties = {
+  margin: 0,
+  color: "#6b7280",
+  fontSize: "14px",
+  lineHeight: 1.7,
+};
+
+const activityList: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "16px",
+};
+
+const activityItem: React.CSSProperties = {
+  display: "flex",
+  gap: "14px",
+  alignItems: "flex-start",
+  padding: "16px",
+  borderRadius: "18px",
+  background: "#fff8f8",
+  border: "1px solid rgba(220, 38, 38, 0.08)",
+};
+
+const activityDot: React.CSSProperties = {
+  width: "12px",
+  height: "12px",
+  borderRadius: "50%",
+  background: "linear-gradient(135deg, #b91c1c, #ef4444)",
+  marginTop: "6px",
+  flexShrink: 0,
+};
+
+const activityTitle: React.CSSProperties = {
+  margin: "0 0 6px",
+  fontSize: "16px",
+  color: "#111827",
+  fontWeight: 700,
+};
+
+const activityDesc: React.CSSProperties = {
+  margin: 0,
+  color: "#6b7280",
+  fontSize: "14px",
+  lineHeight: 1.6,
+};
+
+const sideCard: React.CSSProperties = {
+  background: "rgba(255,255,255,0.88)",
+  borderRadius: "26px",
+  padding: "22px",
+  border: "1px solid rgba(220, 38, 38, 0.10)",
+  boxShadow: "0 18px 40px rgba(127, 29, 29, 0.08)",
+};
+
+const sideTag: React.CSSProperties = {
+  margin: 0,
+  color: "#b91c1c",
+  fontSize: "12px",
+  fontWeight: 800,
+  letterSpacing: "1px",
+};
+
+const sideTitle: React.CSSProperties = {
+  margin: "8px 0 20px",
+  fontSize: "22px",
+  color: "#111827",
+  fontWeight: 800,
+};
+
+const healthList: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "14px",
+};
+
+const healthRow: React.CSSProperties = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  paddingBottom: "12px",
+  borderBottom: "1px solid rgba(220, 38, 38, 0.08)",
+};
+
+const healthLabel: React.CSSProperties = {
+  color: "#4b5563",
+  fontSize: "14px",
+};
+
+const healthGood: React.CSSProperties = {
+  color: "#b91c1c",
+  fontWeight: 800,
+  fontSize: "14px",
+};
