@@ -164,7 +164,7 @@ export default function AdminPage() {
                 <p style={actionText}>Monitor incoming requests and urgent demand.</p>
               </button>
 
-              <button style={actionCard} onClick={() => router.push("/thank-you")}>
+              <button style={actionCard} onClick={() => router.push("/admin/thank-you")}>
                 <div style={actionEmoji}>🎁</div>
                 <h3 style={actionTitle}>Thank You Cards</h3>
                 <p style={actionText}>Open the thank you page and manage appreciation content.</p>
